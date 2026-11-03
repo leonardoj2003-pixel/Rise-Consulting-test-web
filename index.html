@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rise AI Consulting — Higher thinking. Better results.</title>
+<meta name="description" content="Rise AI Consulting ayuda a empresas mexicanas a modernizar sus sistemas, su monitoreo y sus procesos con inteligencia artificial para no quedarse atrás.">
+<meta name="theme-color" content="#031B3D">
+<link rel="icon" type="image/png" href="brand_assets/app-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: { ocean: '#031B3D', sky: '#2E8FFF' },
+      fontFamily: { display: ['Sora', 'sans-serif'], body: ['"DM Sans"', 'sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+:root{
+  --ocean:#031B3D; --ocean-deep:#02122B; --ocean-up:#072A57; --ocean-float:#0B3670;
+  --sky:#2E8FFF; --sky-soft:#7DBBFF; --white:#FFFFFF;
+  --line:rgba(125,187,255,.16); --muted:rgba(255,255,255,.66);
+  --s-1:8px; --s-2:16px; --s-3:24px; --s-4:40px; --s-5:64px; --s-6:104px;
+  --spring:cubic-bezier(.34,1.56,.64,1); --ease:cubic-bezier(.22,1,.36,1);
+  --shadow-up:0 1px 0 rgba(255,255,255,.06) inset,0 1px 2px rgba(1,10,28,.4),0 8px 24px -8px rgba(1,10,28,.55),0 24px 48px -24px rgba(46,143,255,.18);
+  --shadow-float:0 1px 0 rgba(255,255,255,.1) inset,0 2px 4px rgba(1,10,28,.35),0 16px 32px -12px rgba(1,10,28,.6),0 40px 80px -24px rgba(46,143,255,.32);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;background:var(--ocean-deep);color:var(--white);font-family:'DM Sans',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:'Sora',sans-serif;margin:0}
+h1,h2{letter-spacing:-.03em;line-height:1.08}
+.eyebrow{font-family:'Sora',sans-serif;font-size:12px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--sky)}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 var(--s-3)}
+section{position:relative}
+
+/* grain */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:'Sora',sans-serif;font-weight:600;font-size:15px;letter-spacing:-.01em;border-radius:999px;padding:15px 28px;text-decoration:none;cursor:pointer;border:0;
+  transition:transform .45s var(--spring),box-shadow .3s var(--ease),opacity .2s}
+.btn-primary{background:linear-gradient(180deg,#4BA0FF 0%,var(--sky) 55%,#1F7AEB 100%);color:#fff;
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 2px 4px rgba(14,70,150,.45),0 12px 28px -8px rgba(46,143,255,.65),0 28px 56px -20px rgba(46,143,255,.45)}
+.btn-primary:hover{transform:translateY(-3px)}
+.btn-primary:active{transform:translateY(0) scale(.97)}
+.btn-ghost{background:rgba(255,255,255,.04);color:#fff;box-shadow:0 0 0 1px rgba(125,187,255,.28) inset}
+.btn-ghost:hover{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(125,187,255,.6) inset,0 12px 28px -12px rgba(46,143,255,.4)}
+.btn-ghost:active{transform:translateY(0) scale(.97)}
+.btn:focus-visible,.nav-link:focus-visible,a:focus-visible{outline:2px solid var(--sky-soft);outline-offset:4px}
+.btn .arrow{transition:transform .45s var(--spring)}
+.btn:hover .arrow{transform:translateX(4px)}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:var(--s-2) 0;background:linear-gradient(180deg,rgba(2,18,43,.92),rgba(2,18,43,.55));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-link{color:var(--muted);text-decoration:none;font-size:15px;font-weight:500;padding:6px 2px;display:inline-block;transition:transform .35s var(--spring),color .2s}
+.nav-link:hover{color:#fff;transform:translateY(-2px)}
+.nav-link:active{transform:translateY(0) scale(.96)}
+.nav .btn{padding:11px 22px;font-size:14px}
+
+/* hero */
+.hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:calc(var(--s-6) + 20px) 0 var(--s-6);
+  background:
+    radial-gradient(900px 560px at 82% 18%,rgba(46,143,255,.34),transparent 62%),
+    radial-gradient(700px 520px at 8% 78%,rgba(11,54,112,.75),transparent 65%),
+    radial-gradient(500px 360px at 52% 112%,rgba(46,143,255,.2),transparent 70%),
+    linear-gradient(180deg,var(--ocean) 0%,var(--ocean-deep) 100%)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:72px 72px;-webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000,transparent 75%);mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000,transparent 75%)}
+#brain{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-veil{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 50% 30% at 50% 50%,rgba(2,18,43,.72),transparent 72%),linear-gradient(180deg,transparent 70%,var(--ocean-deep))}
+.hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+.hero h1{font-size:clamp(46px,8.6vw,116px);font-weight:700;line-height:1.02;margin-top:var(--s-3);text-shadow:0 6px 48px rgba(2,18,43,.9)}
+.hero h1>span{display:block;text-wrap:balance}
+.hero-sub{font-size:clamp(17px,1.7vw,21px);color:rgba(255,255,255,.8);margin:var(--s-3) 0 0;text-shadow:0 2px 24px rgba(2,18,43,.95)}
+.load{opacity:0;transform:translateY(28px);animation:rise 1.2s var(--ease) var(--d,0s) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.scroll-cue{position:absolute;z-index:2;bottom:var(--s-4);left:0;right:0;margin:0 auto;width:max-content;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--sky-soft);text-decoration:none;transition:transform .4s var(--spring)}
+.scroll-cue:hover{transform:translateY(-3px)}
+.scroll-cue:active{transform:scale(.96)}
+.chev{width:10px;height:10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(45deg);opacity:.5}50%{transform:translateY(6px) rotate(45deg);opacity:1}}
+.intro{background:
+    radial-gradient(800px 500px at 85% 30%,rgba(46,143,255,.22),transparent 62%),
+    radial-gradient(700px 520px at 5% 80%,rgba(11,54,112,.6),transparent 65%)}
+.hero h1 em{display:block;font-style:normal;text-shadow:none;filter:drop-shadow(0 6px 36px rgba(2,18,43,.9));background:linear-gradient(100deg,#7DBBFF,var(--sky) 60%,#1F7AEB);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:560px}
+.hero-grid{display:grid;gap:var(--s-5);align-items:center;position:relative}
+@media(min-width:960px){.hero-grid{grid-template-columns:1.1fr .9fr}}
+
+/* hero visual */
+.stage{position:relative;height:440px;max-width:520px;width:100%;margin:0 auto}
+.card{position:absolute;border-radius:20px;background:linear-gradient(160deg,rgba(11,54,112,.9),rgba(7,42,87,.92));border:1px solid var(--line);box-shadow:var(--shadow-up);padding:var(--s-3)}
+.card.float{background:linear-gradient(160deg,rgba(18,76,150,.95),rgba(11,54,112,.96));box-shadow:var(--shadow-float)}
+.c-main{inset:0 0 70px 36px;animation:drift 9s ease-in-out infinite}
+.c-a{left:0;bottom:0;width:230px;padding:var(--s-2) var(--s-3);animation:drift 7s ease-in-out infinite reverse}
+.c-b{right:-8px;bottom:36px;width:200px;padding:var(--s-2) var(--s-3);animation:drift 8s ease-in-out -3s infinite}
+@media(max-width:600px){.stage{height:400px}.c-main{inset:0 0 60px 0}.c-b{display:none}.c-a{left:-4px}}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.dot{width:8px;height:8px;border-radius:50%;background:#4DE3A6;box-shadow:0 0 0 4px rgba(77,227,166,.16);display:inline-block}
+.tag{font-size:12px;color:var(--sky-soft);font-weight:500;letter-spacing:.04em}
+.bar{height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--sky),var(--sky-soft));transform-origin:left;animation:fill 2.4s var(--ease) both}
+@keyframes fill{from{transform:scaleX(0)}}
+
+/* marquee-free proof strip */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(3,27,61,.55)}
+.strip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s-3);padding-top:var(--s-4);padding-bottom:var(--s-4)}
+@media(min-width:760px){.strip-grid{grid-template-columns:repeat(4,1fr)}}
+.strip b{font-family:'Sora',sans-serif;font-size:15px;font-weight:600;display:block;letter-spacing:-.01em}
+.strip span{font-size:14px;color:var(--muted)}
+
+/* shared section */
+.block{padding:var(--s-6) 0}
+.block h2{font-size:clamp(32px,4.4vw,52px);font-weight:600;margin-top:var(--s-2)}
+.sub{color:var(--muted);font-size:18px;max-width:600px;margin-top:var(--s-2)}
+
+/* problem */
+.problem{background:linear-gradient(180deg,rgba(2,18,43,.35),rgba(3,27,61,.55))}
+.problem-grid{display:grid;gap:var(--s-5);align-items:center}
+@media(min-width:900px){.problem-grid{grid-template-columns:1fr 1fr}}
+.race{position:relative;border-radius:24px;padding:var(--s-4) var(--s-3);background:linear-gradient(160deg,var(--ocean-up),var(--ocean));border:1px solid var(--line);box-shadow:var(--shadow-up)}
+.lane{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:var(--s-2);font-size:14px;color:var(--muted);padding:12px 0}
+.lane .track{height:10px;border-radius:99px;background:rgba(255,255,255,.07);position:relative;overflow:hidden}
+.lane .track i{position:absolute;inset:0 auto 0 0;border-radius:99px}
+.l-ai i{width:92%;background:linear-gradient(90deg,#1F7AEB,var(--sky),var(--sky-soft))}
+.l-slow i{width:38%;background:rgba(255,255,255,.28)}
+.l-ai{color:#fff}
+
+/* services */
+.svc-grid{display:grid;gap:var(--s-3);margin-top:var(--s-5)}
+@media(min-width:700px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1040px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
+.svc{position:relative;border-radius:22px;padding:var(--s-4) var(--s-3);background:linear-gradient(165deg,var(--ocean-up),var(--ocean) 85%);border:1px solid var(--line);box-shadow:var(--shadow-up);
+  transition:transform .5s var(--spring),box-shadow .35s var(--ease)}
+.svc:hover{transform:translateY(-6px);box-shadow:var(--shadow-float)}
+.svc:active{transform:translateY(-2px) scale(.99)}
+.svc .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:var(--s-3);background:linear-gradient(160deg,rgba(46,143,255,.35),rgba(46,143,255,.08));border:1px solid rgba(125,187,255,.3)}
+.svc h3{font-size:20px;font-weight:600;letter-spacing:-.02em;line-height:1.25;margin-bottom:var(--s-1)}
+.svc p{margin:0;color:var(--muted);font-size:16px}
+.svc-wide{background:linear-gradient(135deg,#0B4AA0,var(--sky) 140%);border-color:rgba(255,255,255,.2)}
+.svc-wide p{color:rgba(255,255,255,.88)}
+.svc-wide .ic{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35)}
+
+/* process */
+.process{background:rgba(3,27,61,.5);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;gap:var(--s-3);margin-top:var(--s-5);counter-reset:s}
+@media(min-width:900px){.steps{grid-template-columns:repeat(4,1fr)}}
+.step{position:relative;padding-top:var(--s-3);border-top:1px solid rgba(125,187,255,.3)}
+.step::before{counter-increment:s;content:"0" counter(s);font-family:'Sora',sans-serif;font-size:13px;font-weight:600;letter-spacing:.2em;color:var(--sky)}
+.step::after{content:"";position:absolute;top:-4px;left:0;width:7px;height:7px;border-radius:50%;background:var(--sky);box-shadow:0 0 14px var(--sky)}
+.step h3{font-size:19px;font-weight:600;margin:var(--s-1) 0;letter-spacing:-.02em}
+.step p{margin:0;color:var(--muted);font-size:16px}
+
+/* why */
+.why-grid{display:grid;gap:var(--s-3);margin-top:var(--s-5)}
+@media(min-width:900px){.why-grid{grid-template-columns:1.2fr 1fr 1fr}}
+.why{border-radius:22px;padding:var(--s-4) var(--s-3);border:1px solid var(--line);background:linear-gradient(165deg,rgba(11,54,112,.55),rgba(3,27,61,.9));box-shadow:var(--shadow-up)}
+.why h3{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-bottom:var(--s-1)}
+.why p{margin:0;color:var(--muted)}
+
+/* cta */
+.cta{padding:var(--s-6) 0;background:
+  radial-gradient(800px 420px at 50% 0%,rgba(46,143,255,.35),transparent 65%),
+  radial-gradient(600px 380px at 90% 100%,rgba(11,54,112,.8),transparent 70%),
+  linear-gradient(180deg,rgba(3,27,61,.5),rgba(2,18,43,.3))}
+.cta-box{text-align:center;border-radius:32px;padding:var(--s-6) var(--s-3);border:1px solid var(--line);background:linear-gradient(165deg,rgba(11,54,112,.7),rgba(3,27,61,.85));box-shadow:var(--shadow-float);position:relative;overflow:hidden}
+.cta-box h2{font-size:clamp(32px,5vw,58px);font-weight:700;max-width:760px;margin:var(--s-2) auto 0}
+.cta-box p{color:var(--muted);font-size:18px;max-width:520px;margin:var(--s-2) auto var(--s-4)}
+
+/* footer */
+footer{background:rgba(2,18,43,.75);border-top:1px solid var(--line);padding:var(--s-5) 0 var(--s-4)}
+.foot{display:grid;gap:var(--s-4)}
+@media(min-width:800px){.foot{grid-template-columns:1.4fr 1fr 1fr}}
+.foot a{color:var(--muted);text-decoration:none;display:inline-block;padding:2px 0;transition:transform .35s var(--spring),color .2s}
+.foot a:hover{color:#fff;transform:translateX(3px)}
+.foot a:active{transform:scale(.97)}
+.foot h4{font-family:'Sora',sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--sky);margin:0 0 var(--s-2);font-weight:500}
+.legal{margin-top:var(--s-5);padding-top:var(--s-3);border-top:1px solid var(--line);font-size:14px;color:rgba(255,255,255,.45);display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s-1)}
+
+
+/* animated background (aurora orbs + falling beams) */
+.bg-fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;width:70vmax;height:70vmax;border-radius:50%;will-change:transform}
+.orb-1{top:-20vmax;left:-15vmax;background:radial-gradient(circle,rgba(46,143,255,.26),transparent 62%);animation:orb1 26s ease-in-out infinite alternate}
+.orb-2{bottom:-25vmax;right:-20vmax;background:radial-gradient(circle,rgba(11,74,160,.55),transparent 62%);animation:orb2 32s ease-in-out infinite alternate}
+.orb-3{top:30%;left:40%;width:50vmax;height:50vmax;background:radial-gradient(circle,rgba(125,187,255,.14),transparent 60%);animation:orb3 22s ease-in-out infinite alternate}
+@keyframes orb1{to{transform:translate3d(30vw,25vh,0) scale(1.25)}}
+@keyframes orb2{to{transform:translate3d(-35vw,-30vh,0) scale(1.15)}}
+@keyframes orb3{0%{transform:translate3d(-20vw,10vh,0) scale(.9)}100%{transform:translate3d(15vw,-20vh,0) scale(1.2)}}
+.rails{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(125,187,255,.06) 1px,transparent 1px);background-size:calc(100% / 8) 100%;-webkit-mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent);mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent)}
+.beam{position:absolute;top:0;width:1px;height:28vh;background:linear-gradient(180deg,transparent,rgba(125,187,255,.9) 70%,#fff);opacity:0;animation:beam linear infinite;will-change:transform,opacity}
+.beam::after{content:"";position:absolute;bottom:-3px;left:-2px;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 12px 3px rgba(46,143,255,.9)}
+@keyframes beam{0%{transform:translateY(-30vh);opacity:0}10%{opacity:1}85%{opacity:1}100%{transform:translateY(105vh);opacity:0}}
+main,footer{position:relative;z-index:1}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .9s var(--spring)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .c-main,.c-a,.c-b{animation:none}.bar>i{animation:none}
+  .orb,.beam{animation:none}.beam{display:none}
+  .load{opacity:1;transform:none;animation:none}.chev{animation:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap flex items-center justify-between">
+    <a href="#top" aria-label="Rise AI Consulting, inicio"><img src="brand_assets/logo-wordmark.png" alt="Rise AI" width="852" height="162" style="height:30px;width:auto;display:block"></a>
+    <nav class="hidden md:flex items-center gap-8" aria-label="Principal">
+      <a class="nav-link" href="#services">Servicios</a>
+      <a class="nav-link" href="#process">Proceso</a>
+      <a class="nav-link" href="#why">Por qué Rise AI</a>
+    </nav>
+    <a class="btn btn-primary" href="#contact" style="white-space:nowrap"><span class="sm:hidden">Agendar</span><span class="hidden sm:inline">Agenda una llamada</span></a>
+  </div>
+</header>
+
+<div class="bg-fx" aria-hidden="true">
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+  <div class="rails"></div>
+  <i class="beam" style="left:12.5%;animation-duration:7s;animation-delay:-1s"></i>
+  <i class="beam" style="left:37.5%;animation-duration:9s;animation-delay:-5s"></i>
+  <i class="beam" style="left:50%;animation-duration:6s;animation-delay:-3s"></i>
+  <i class="beam" style="left:75%;animation-duration:8s;animation-delay:-6s"></i>
+  <i class="beam" style="left:87.5%;animation-duration:10s;animation-delay:-2s"></i>
+</div>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <canvas id="brain" aria-hidden="true"></canvas>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow load" style="--d:.15s">Higher thinking. Better results.</p>
+    <h1><span class="load" style="--d:.3s">Don't fall out of the race.</span><em class="load" style="--d:.5s">Rise with AI.</em></h1>
+    <p class="hero-sub load" style="--d:.7s">Consultoría en inteligencia artificial para empresas mexicanas.</p>
+    <div class="load" style="--d:.85s;margin-top:var(--s-4)">
+      <a class="btn btn-primary" href="#contact">Agenda tu consulta gratis <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <a class="scroll-cue load" style="--d:1.2s" href="#intro">Descubre más<span class="chev" aria-hidden="true"></span></a>
+</section>
+
+<!-- INTRO -->
+<section id="intro" class="intro block">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow rv">Rise AI Consulting</p>
+      <h2 class="rv">IA para empresas que quieren ir al frente.</h2>
+      <p class="lead rv" style="margin-top:var(--s-3);transition-delay:.16s">Ayudamos a empresas mexicanas a modernizar sus sistemas, su monitoreo y sus procesos con IA, para que avancen más rápido que su competencia, no más lento.</p>
+      <div class="rv" style="display:flex;flex-wrap:wrap;gap:var(--s-2);margin-top:var(--s-4);transition-delay:.24s">
+        <a class="btn btn-primary" href="#contact">Agenda tu consulta gratis <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#services">Ve lo que hacemos</a>
+      </div>
+    </div>
+
+    <div class="stage rv" style="transition-delay:.2s" aria-hidden="true">
+      <div class="card c-main float">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <span class="tag">COMPANY PERFORMANCE · ILLUSTRATIVE</span>
+          <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#BFE0FF"><span class="dot"></span>Live</span>
+        </div>
+        <svg viewBox="0 0 400 220" width="100%" style="margin-top:var(--s-3);display:block" role="img">
+          <defs>
+            <linearGradient id="ar" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2E8FFF" stop-opacity="0"/><stop offset="1" stop-color="#2E8FFF" stop-opacity=".38"/></linearGradient>
+            <linearGradient id="ln" x1="0" x2="1"><stop offset="0" stop-color="#2E8FFF"/><stop offset="1" stop-color="#9ACBFF"/></linearGradient>
+          </defs>
+          <g stroke="rgba(125,187,255,.14)"><path d="M0 40H400M0 100H400M0 160H400"/></g>
+          <path d="M0 190 C60 184 90 170 130 160 S210 140 250 105 S330 50 400 18 V220 H0Z" fill="url(#ar)"/>
+          <path d="M0 190 C60 184 90 170 130 160 S210 140 250 105 S330 50 400 18" fill="none" stroke="url(#ln)" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M0 196 C80 194 160 190 240 182 S340 170 400 166" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="2" stroke-dasharray="4 6"/>
+          <circle cx="400" cy="18" r="6" fill="#fff"/><circle cx="400" cy="18" r="14" fill="#2E8FFF" opacity=".25"/>
+        </svg>
+        <div style="display:flex;gap:var(--s-3);margin-top:var(--s-2);font-size:13px;color:var(--muted)">
+          <span style="display:flex;align-items:center;gap:8px"><i style="width:18px;height:3px;border-radius:9px;background:var(--sky);display:block"></i>With AI</span>
+          <span style="display:flex;align-items:center;gap:8px"><i style="width:18px;height:0;border-top:2px dashed rgba(255,255,255,.4);display:block"></i>Without</span>
+        </div>
+      </div>
+
+      <div class="card c-a float">
+        <div class="tag">WORKFLOW</div>
+        <div style="font-family:Sora;font-weight:600;font-size:15px;margin:6px 0 12px;letter-spacing:-.01em">Approvals automated</div>
+        <div class="bar"><i style="width:78%"></i></div>
+      </div>
+
+      <div class="card c-b float">
+        <div class="tag">MONITORING</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:6px;font-family:Sora;font-weight:600;font-size:15px;letter-spacing:-.01em"><span class="dot"></span>All systems healthy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<section class="strip" aria-label="En resumen">
+  <div class="wrap strip-grid">
+    <div class="rv"><b>Primero México</b><span>Hecho para empresas mexicanas</span></div>
+    <div class="rv" style="transition-delay:.06s"><b>Alcance global</b><span>México, EE. UU. y más allá</span></div>
+    <div class="rv" style="transition-delay:.12s"><b>Bilingües</b><span>Español e inglés</span></div>
+    <div class="rv" style="transition-delay:.18s"><b>De principio a fin</b><span>De la estrategia a sistemas funcionando</span></div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem block">
+  <div class="wrap problem-grid">
+    <div>
+      <p class="eyebrow rv">The gap</p>
+      <h2 class="rv">Tu competencia ya está usando IA.</h2>
+      <p class="sub rv">Cada mes que una empresa espera, la brecha crece. Reportes lentos, procesos manuales y puntos ciegos en la operación dejan de ser molestias y empiezan a costar mercado. La buena noticia: la brecha se cierra más rápido de lo que la mayoría espera.</p>
+    </div>
+    <div class="race rv" aria-hidden="true">
+      <div class="tag" style="margin-bottom:var(--s-1)">SPEED OF OPERATIONS · ILLUSTRATIVE</div>
+      <div class="lane l-ai"><span>With AI</span><div class="track"><i></i></div></div>
+      <div class="lane l-slow"><span>Manual</span><div class="track"><i></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="block">
+  <div class="wrap">
+    <p class="eyebrow rv">What we do</p>
+    <h2 class="rv" style="max-width:720px">IA donde realmente mueve tu negocio.</h2>
+    <p class="sub rv">Encontramos los problemas que más te cuestan y los resolvemos con IA que tu equipo sí puede usar.</p>
+
+    <div class="svc-grid">
+      <article class="svc rv">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ACBFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+        <h3>Modernización de sistemas</h3>
+        <p>Moderniza las herramientas y el software con los que opera tu empresa, y conéctalos con IA para que la información fluya en lugar de atorarse.</p>
+      </article>
+      <article class="svc rv" style="transition-delay:.06s">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ACBFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+        <h3>Monitoreo e insights</h3>
+        <p>Ve lo que pasa en tu operación en tiempo real, con alertas y pronósticos antes de que los problemas pequeños se vuelvan grandes.</p>
+      </article>
+      <article class="svc rv" style="transition-delay:.12s">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ACBFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="12" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8.5 6H13a3 3 0 0 1 3 3v.5M8.5 18H13a3 3 0 0 0 3-3v-.5"/></svg></div>
+        <h3>Automatización de procesos</h3>
+        <p>Quítale a tu equipo el trabajo repetitivo: aprobaciones, reportes, captura de datos, seguimiento a clientes. Tu gente se enfoca en lo que importa.</p>
+      </article>
+      <article class="svc rv">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ACBFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+        <h3>Apoyo a la dirección</h3>
+        <p>Mejores decisiones con datos más claros. Ayudamos a la dirección a planear, medir y operar la empresa con IA detrás de cada reporte.</p>
+      </article>
+      <article class="svc rv" style="transition-delay:.06s">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ACBFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
+        <h3>Producto y servicio</h3>
+        <p>Agrega IA a lo que vendes. Nuevas funciones, un servicio más inteligente y una mejor experiencia para tus clientes.</p>
+      </article>
+      <article class="svc svc-wide rv" style="transition-delay:.12s">
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
+        <h3>¿No sabes por dónde empezar?</h3>
+        <p>Agenda una consulta gratis. Analizamos tu empresa y te decimos dónde la IA te va a dar resultados primero.</p>
+        <a class="btn btn-ghost" href="#contact" style="margin-top:var(--s-3);padding:11px 22px;font-size:14px;background:rgba(255,255,255,.14)">Hablemos <span class="arrow" aria-hidden="true">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="process block">
+  <div class="wrap">
+    <p class="eyebrow rv">How it works</p>
+    <h2 class="rv" style="max-width:700px">De la primera llamada a un sistema funcionando.</h2>
+    <div class="steps">
+      <div class="step rv"><h3>Diagnóstico</h3><p>Entendemos cómo opera tu empresa y encontramos dónde se pierde tiempo y dinero.</p></div>
+      <div class="step rv" style="transition-delay:.06s"><h3>Diseño</h3><p>Armamos un plan claro con las soluciones de IA que dan el mayor retorno primero.</p></div>
+      <div class="step rv" style="transition-delay:.12s"><h3>Implementación</h3><p>Lo implementamos con tu equipo, en tus herramientas, sin frenar la operación diaria.</p></div>
+      <div class="step rv" style="transition-delay:.18s"><h3>Mejora continua</h3><p>Medimos resultados, capacitamos a tu gente y seguimos mejorando.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why" class="block">
+  <div class="wrap">
+    <p class="eyebrow rv">Why Rise AI</p>
+    <h2 class="rv" style="max-width:720px">Ambiciosos, prácticos y cerca de tu mercado.</h2>
+    <div class="why-grid">
+      <div class="why rv"><h3>Hechos para empresas mexicanas</h3><p>Entendemos cómo se hacen negocios en México, desde empresas familiares hasta corporativos en crecimiento, y también atendemos clientes en EE. UU. y el resto del mundo.</p></div>
+      <div class="why rv" style="transition-delay:.06s"><h3>Resultados, no promesas</h3><p>Sin palabras de moda. Cada proyecto se conecta con un número que te importa: tiempo ahorrado, costos reducidos, ingresos ganados.</p></div>
+      <div class="why rv" style="transition-delay:.12s"><h3>Fácil de adoptar</h3><p>Soluciones que tu equipo entiende y usa desde el primer día.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta">
+  <div class="wrap">
+    <div class="cta-box rv">
+      <p class="eyebrow">Let's talk</p>
+      <h2>¿Listo para llevar tu empresa más arriba?</h2>
+      <p>Agenda una consulta gratis y descubre dónde la IA puede ayudar primero a tu negocio.</p>
+      <a class="btn btn-primary" href="mailto:hello@riseai.consulting">Agenda tu consulta gratis <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <img src="brand_assets/logo-full.png" alt="Rise AI Consulting" width="852" height="236" style="height:64px;width:auto;display:block">
+        <p style="color:var(--muted);margin:var(--s-2) 0 0;max-width:340px">Consultoría en IA para empresas en México, Estados Unidos y el mundo.</p>
+      </div>
+      <div>
+        <h4>Explora</h4>
+        <a href="#services">Servicios</a><br>
+        <a href="#process">Proceso</a><br>
+        <a href="#why">Por qué Rise AI</a>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <a href="mailto:hello@riseai.consulting">hello@riseai.consulting</a>
+      </div>
+    </div>
+    <div class="legal"><span>© 2026 Rise AI Consulting</span><span>Higher thinking. Better results.</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+
+// AI brain: 3D point cloud with neural pulses
+(function(){
+  var cv=document.getElementById('brain'); if(!cv||!cv.getContext) return;
+  var ctx=cv.getContext('2d');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var seed=11; function rnd(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646}
+  function onSphere(){var u=rnd()*2-1,t=rnd()*Math.PI*2,r=Math.sqrt(1-u*u);return [r*Math.cos(t),u,r*Math.sin(t)]}
+  var P=[];
+  // cerebrum: two folded hemispheres with a fissure
+  while(P.length<640){
+    var d=onSphere(),fold=1+.07*Math.sin(d[2]*9+d[1]*4)*Math.cos(d[1]*8-d[0]*3);
+    var sh=rnd()<.8?1:.5+rnd()*.4;
+    var x=d[0]*.92*fold*sh,y=d[1]*.72*fold*sh,z=d[2]*1.15*fold*sh;
+    if(y<-.28) y=-.28+(y+.28)*.35;
+    if(Math.abs(x)<.05&&y>-.1) continue;
+    P.push({x:x+(x>0?.05:-.05),y:y+.1,z:z,f:0});
+  }
+  // cerebellum + stem
+  for(var i=0;i<90;i++){var c=onSphere();P.push({x:c[0]*.42,y:c[1]*.2-.3,z:c[2]*.3-.8,f:0})}
+  for(i=0;i<16;i++) P.push({x:(rnd()-.5)*.12,y:-.34-rnd()*.38,z:-.42+(rnd()-.5)*.12,f:0});
+
+  var E=[],nb=P.map(function(){return []});
+  for(i=0;i<P.length;i++){
+    var best=[];
+    for(var j=0;j<P.length;j++){ if(i===j) continue;
+      var dx=P[i].x-P[j].x,dy=P[i].y-P[j].y,dz=P[i].z-P[j].z,dd=dx*dx+dy*dy+dz*dz;
+      if(dd<.09){best.push([dd,j])} }
+    best.sort(function(a,b){return a[0]-b[0]});
+    for(j=0;j<Math.min(3,best.length);j++){var k=best[j][1];
+      if(nb[i].indexOf(k)<0){nb[i].push(k);nb[k].push(i);E.push([i,k])}}
+  }
+
+  var W,H,S,CX,CY;
+  function size(){var dpr=Math.min(window.devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    S=Math.min(W*.4,H*.46);CX=W/2;CY=H*.5}
+  size(); window.addEventListener('resize',size);
+
+  var rot=0,tx=0,ty=0,mx=0,my=0;
+  window.addEventListener('pointermove',function(e){mx=(e.clientX/W-.5)*.6;my=(e.clientY/H-.5)*.3});
+
+  var pulses=[],NP=W<700?18:34;
+  function spawn(p){var a=Math.floor(rnd()*P.length);if(!nb[a].length) a=E[0][0];
+    p.a=a;p.b=nb[a][Math.floor(rnd()*nb[a].length)];p.t=0;p.v=.025+rnd()*.03;p.h=4+Math.floor(rnd()*8);return p}
+  for(i=0;i<NP;i++){var q=spawn({});q.t=rnd();pulses.push(q)}
+
+  function project(){
+    var cr=Math.cos(rot+tx),sr=Math.sin(rot+tx),ax=-.2+ty,ca=Math.cos(ax),sa=Math.sin(ax);
+    for(var i=0;i<P.length;i++){var p=P[i];
+      var x1=p.x*cr+p.z*sr,z1=-p.x*sr+p.z*cr,y1=p.y*ca-z1*sa,z2=p.y*sa+z1*ca,f=3/(3+z2);
+      p.X=CX+x1*S*f;p.Y=CY-y1*S*f;p.k=Math.max(0,Math.min(1,(1.2-z2)/2.4))}
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.globalCompositeOperation='lighter';
+    var B=[[],[],[]];
+    for(var i=0;i<E.length;i++){var a=P[E[i][0]],b=P[E[i][1]],k=(a.k+b.k)/2;B[k<.4?0:k<.65?1:2].push(a,b)}
+    var LA=[.05,.11,.22];
+    for(var g=0;g<3;g++){ctx.beginPath();var L=B[g];
+      for(i=0;i<L.length;i+=2){ctx.moveTo(L[i].X,L[i].Y);ctx.lineTo(L[i+1].X,L[i+1].Y)}
+      ctx.strokeStyle='rgba(125,187,255,'+LA[g]+')';ctx.lineWidth=.8;ctx.stroke()}
+    for(i=0;i<P.length;i++){var p=P[i],r=.7+1.5*p.k+p.f*2.5;
+      ctx.fillStyle=p.f>.05?'rgba(190,225,255,'+(.4+.6*p.f)+')':'rgba(125,187,255,'+(.25+.6*p.k)+')';
+      ctx.beginPath();ctx.arc(p.X,p.Y,r,0,6.283);ctx.fill();p.f*=.94}
+    for(i=0;i<pulses.length;i++){var q=pulses[i],A=P[q.a],Bp=P[q.b],x=A.X+(Bp.X-A.X)*q.t,y=A.Y+(Bp.Y-A.Y)*q.t;
+      ctx.strokeStyle='rgba(46,143,255,.55)';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(A.X,A.Y);ctx.lineTo(x,y);ctx.stroke();
+      ctx.fillStyle='rgba(46,143,255,.18)';ctx.beginPath();ctx.arc(x,y,9,0,6.283);ctx.fill();
+      ctx.fillStyle='rgba(235,245,255,.95)';ctx.beginPath();ctx.arc(x,y,1.9,0,6.283);ctx.fill()}
+    ctx.globalCompositeOperation='source-over';
+  }
+
+  function step(dt){
+    rot+=dt*.00014;tx+=(mx-tx)*.04;ty+=(my-ty)*.04;
+    for(var i=0;i<pulses.length;i++){var q=pulses[i];q.t+=q.v*dt/16;
+      if(q.t>=1){P[q.b].f=1;q.h--;
+        if(q.h<=0){spawn(q)}else{var n=nb[q.b];q.a=q.b;q.b=n[Math.floor(rnd()*n.length)];q.t=0}}}
+  }
+
+  var last=0,raf=0;
+  function loop(ts){var dt=Math.min(48,ts-(last||ts));last=ts;step(dt);project();draw();raf=requestAnimationFrame(loop)}
+  function start(){if(!raf&&!reduce){last=0;raf=requestAnimationFrame(loop)}}
+  function stop(){cancelAnimationFrame(raf);raf=0}
+  project();draw();
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){es[0].isIntersecting?start():stop()}).observe(cv)}else start();
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():start()});
+})();
+</script>
+</body>
+</html>
